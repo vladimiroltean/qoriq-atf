@@ -56,18 +56,17 @@ const struct ddr_cfg_regs static_1600 = {
 long long board_static_ddr(struct ddr_info *priv)
 {
 	memcpy(&priv->ddr_reg, &static_1600, sizeof(static_1600));
-
 	return 0x100000000ULL;
 }
 
 #else
 static const struct rc_timing rcz[] = {
-	{1600, 8, 5},
+	{1600, 9, 5},
 	{}
 };
 
 static const struct board_timing ram[] = {
-	{0x1f, rcz, 0x1020200, 0x00000003},
+	{0x1f, rcz, 0x10100, 0x00000000},
 };
 
 int ddr_board_options(struct ddr_info *priv)
@@ -85,7 +84,7 @@ int ddr_board_options(struct ddr_info *priv)
 	popts->ddr_cdr1 = DDR_CDR1_DHC_EN |
 			  DDR_CDR1_ODT(DDR_CDR_ODT_80ohm);
 	popts->ddr_cdr2 = DDR_CDR2_ODT(DDR_CDR_ODT_80ohm) |
-			  DDR_CDR2_VREF_OVRD(70);	/* Vref = 70% */
+			  DDR_CDR2_VREF_OVRD(70); /* Vref = 70% */
 
 	popts->addr_hash = 1; /* address hashing */
 	return 0;
@@ -94,13 +93,13 @@ int ddr_board_options(struct ddr_info *priv)
 /* DDR model number: K4A8G165WB */
 struct dimm_params ddr_raw_timing = {
 	.n_ranks = 1,
-	.rank_density = 2147483648u,
-	.capacity = 2147483648u,
+	.rank_density = 4294967296u,
+	.capacity = 4294967296u,
 	.primary_sdram_width = 32,
 	.ec_sdram_width = 0,
 	.rdimm = 0,
 	.mirrored_dimm = 0,
-	.n_row_addr = 16,
+	.n_row_addr = 17,
 	.n_col_addr = 10,
 	.bank_addr_bits = 2,
 	.bank_group_bits = 1,
